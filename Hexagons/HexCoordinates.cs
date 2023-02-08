@@ -68,4 +68,3 @@ public struct HexCoordinates
 
 
 }
-// reference: https://catlikecoding.com/unity/tutorials/hex-map/part-1/

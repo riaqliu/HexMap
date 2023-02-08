@@ -37,14 +37,16 @@ public class HexGrid : MonoBehaviour
     }
 
 
-    public void ColorCell(Vector3 position, Color color)
+    public HexCell GetCell(Vector3 position)
     {
         position = transform.InverseTransformPoint(position);
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
-        //Debug.Log($"touched at {coordinates.ToString()}");
         int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
-        HexCell cell = cells[index];
-        cell.color = color;
+        return cells[index];
+    }
+
+    public void Refresh()
+    {
         hexMesh.Triangulate(cells);
     }
 
@@ -91,8 +93,7 @@ public class HexGrid : MonoBehaviour
         label.rectTransform.SetParent(gridCanvas.transform, false);
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
         label.text = cell.coordinates.ToStringOnSeparateLines(); //$"{x.ToString()}, {z.ToString()}";
+
+        cell.uiRect = label.rectTransform;
     }
 }
-
-
-// reference: https://catlikecoding.com/unity/tutorials/hex-map/part-1/
