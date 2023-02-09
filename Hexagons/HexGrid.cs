@@ -16,9 +16,16 @@ public class HexGrid : MonoBehaviour
     HexMesh hexMesh;
 
     public Color defaultColor = Color.white;
+    public Texture2D noiseSource;
+
+    void OnEnable()
+    {
+        HexMetrics.noiseSource = noiseSource;
+    }
 
     void Awake()
     {
+        HexMetrics.noiseSource = noiseSource;
         gridCanvas = GetComponentInChildren<Canvas>();
         hexMesh = GetComponentInChildren<HexMesh>();
         cells = new HexCell[height * width];
@@ -95,5 +102,6 @@ public class HexGrid : MonoBehaviour
         label.text = cell.coordinates.ToStringOnSeparateLines(); //$"{x.ToString()}, {z.ToString()}";
 
         cell.uiRect = label.rectTransform;
+        cell.Elevation = 0;
     }
 }
